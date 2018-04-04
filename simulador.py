@@ -1,8 +1,5 @@
-d={}
-d['0','1']='1'
-d['1','1']='2'
-d['2','1']='3'
-d['3','1']='1'
+#!/usr/bin/python
+from sys import argv
 
 def AFD(d,q0,F,cinta):
     q=q0
@@ -11,5 +8,19 @@ def AFD(d,q0,F,cinta):
     return q in F
 mensaje={True:'Aceptada',False:'Rechazada'}
 
-for i in ('','1','11','111','1111','11111','111111'):
-    print 'La entrada '+i+' es '+mensaje[AFD(d,'0',{'3','0'},cinta)]
+d={}
+F=set()
+programa=open(argv[1])
+for linea in programa:
+    q,s,n=linea.split()
+    if '*' in q:
+        q=q.strip('*')
+        F.add(q)
+    d[q,s]=n
+programa.close()
+
+entrada=open(argv[2])
+for cinta in entrada:
+    cinta=cinta.strip()
+    print 'La entrada '+cinta+' es '+mensaje[AFD(d,'0',F,cinta)]
+entrada.close()
